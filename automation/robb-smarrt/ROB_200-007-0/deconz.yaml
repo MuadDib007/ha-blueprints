@@ -111,75 +111,55 @@ trigger:
   
 action:
   - variables:
-      button: '{{ trigger.event.data.endpoint_id }}'
-      cmd: '{{ trigger.event.data.command }}'
-      args: '{{ trigger.event.data.args }}'
-      code: '{{ trigger.event.data.event }}'
+      button: '{{ trigger.event.data.event / 1000 | int }}'
+      action: '{{ trigger.event.data.event % 10 }}'
   - choose:
       - conditions:
-          - "{{ code == 1002 }}"
+          - "{{ button == 1 and action == 2 }}"
         sequence: !input "on_button_1_short"
       - conditions:
-          - "{{ code == 2002 }}"
+          - "{{ button == 2 and action == 2 }}"
         sequence: !input "off_button_1_short"
       - conditions:
-          - "{{ button == 1 and cmd == 'move_with_on_off' }}"
-        sequence:
-          - if:
-              - condition:
-                - '{{ args[11] == "U" }}'
-            then: 
-                !input "on_button_1_long"
-            else:
-                !input "off_button_1_long"
-
-      - conditions:
-          - "{{ code == 1003 }}"
+          - "{{ button == 3 and action == 2 }}"
         sequence: !input "on_button_2_short"
       - conditions:
-          - "{{ code == 2003 }}"
+          - "{{ button == 4 and action == 2 }}"
         sequence: !input "off_button_2_short"
       - conditions:
-          - "{{ button == 2 and cmd == 'move_with_on_off' }}"
-        sequence:
-          - if:
-              - condition:
-                - '{{ args[11] == "U" }}'
-            then: 
-                !input "on_button_2_long"
-            else:
-                !input "off_button_2_long"
-
-      - conditions:
-          - "{{ code == 1004 }}"
+          - "{{ button == 5 and action == 2 }}"
         sequence: !input "on_button_3_short"
       - conditions:
-          - "{{ code == 2004 }}"
+          - "{{ button == 6 and action == 2 }}"
         sequence: !input "off_button_3_short"
       - conditions:
-          - "{{ button == 3 and cmd == 'move_with_on_off' }}"
-        sequence:
-          - if:
-              - condition:
-                - '{{ args[11] == "U" }}'
-            then: 
-                !input "on_button_3_long"
-            else:
-                !input "off_button_3_long"
-
-      - conditions:
-          - "{{ code == 1005 }}"
+          - "{{ button == 7 and action == 2 }}"
         sequence: !input "on_button_4_short"
       - conditions:
-          - "{{ code == 2005 }}"
+          - "{{ button == 8 and action == 2 }}"
         sequence: !input "off_button_4_short"
+
       - conditions:
-          - "{{ button == 4 and cmd == 'move_with_on_off' }}"
-        sequence:
-          - if:
-              - condition:
-                - '{{ args[11] == "U" }}'
-            then: 
-                !input "on_button_4_long"
-            else:
-                !input "off_button_4_long"
+          - "{{ button == 1 and action == 1 }}"
+        sequence: !input "on_button_1_long"
+      - conditions:
+          - "{{ button == 2 and action == 1 }}"
+        sequence: !input "off_button_1_long"
+      - conditions:
+          - "{{ button == 3 and action == 1 }}"
+        sequence: !input "on_button_2_long"
+      - conditions:
+          - "{{ button == 4 and action == 1 }}"
+        sequence: !input "off_button_2_long"
+      - conditions:
+          - "{{ button == 5 and action == 1 }}"
+        sequence: !input "on_button_3_long"
+      - conditions:
+          - "{{ button == 6 and action == 1 }}"
+        sequence: !input "off_button_3_long"
+      - conditions:
+          - "{{ button == 7 and action == 1 }}"
+        sequence: !input "on_button_4_long"
+      - conditions:
+          - "{{ button == 8 and action == 1 }}"
+        sequence: !input "off_button_4_long"
