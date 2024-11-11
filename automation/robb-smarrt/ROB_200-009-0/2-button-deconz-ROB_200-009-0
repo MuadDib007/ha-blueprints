@@ -1,0 +1,85 @@
+blueprint:
+  name: Robb Smarrt 2-button switch
+  description:  |
+    This blueprint is for the  Robb smarrt 2-button switch panel (ROBB ROB_200-009-0) when used with deconz.
+    It is for general use so all buttons can be connected to any action of your choice. This remote supports short button clicks and long button presses (over 4 seconds)
+    Make sure to select the correct (deconz connected) sensor for the remote.
+    Original source from: https://github.com/Bekkie/ha-blueprints
+  domain: automation
+  source_url: https://github.com/muaddib007/ha-blueprints/blob/main/automation/robb-smarrt/ROB_200-009-0/2-button-deconz-ROB_200-009-0.yaml
+  input:
+    remote:
+      name: Remote
+      description: Switch remote to use
+      selector:
+        device:
+          integration: deconz
+          model: "ROB_200-009-0"
+          
+    on_button_1_short:
+      name: On button 1 - short
+      default: []
+      selector:
+        action: {}
+    off_button_1_short:
+      name: Off button 1 - short
+      default: []
+      selector:
+        action: {}
+    on_button_1_long:
+      name: On button 1 - long press
+      default: []
+      selector:
+        action: {}
+    off_button_1_long:
+      name: Off button 1 - long press
+      default: []
+      selector:
+        action: {}
+
+    on_button_2_short:
+      name: On button 2 - short
+      default: []
+      selector:
+        action: {}
+    off_button_2_short:
+      name: Off button 2 - short
+      default: []
+      selector:
+        action: {}
+    on_button_2_long:
+      name: On button 2 - long press
+      default: []
+      selector:
+        action: {}
+    off_button_2_long:
+      name: Off button 2 - long press
+      default: []
+      selector:
+        action: {}
+
+mode: restart
+max_exceeded: silent
+trigger:
+  - platform: event
+    event_type: deconz_event
+    event_data:
+      device_id: !input "remote"
+  
+action:
+  - variables:
+      button: '{{ (trigger.event.data.event / 1000) | int }}'
+      action: '{{ trigger.event.data.event % 10 }}'
+  - choose:
+      - conditions:
+          - "{{ button == 1 and action == 2 }}"
+        sequence: !input "on_button_1_short"
+      - conditions:
+          - "{{ button == 2 and action == 2 }}"
+        sequence: !input "off_button_1_short"
+      - conditions:
+          - "{{ button == 1 and action == 1 }}"
+        sequence: !input "on_button_1_long"
+      - conditions:
+          - "{{ button == 2 and action == 1 }}"
+        sequence: !input "off_button_1_long"
