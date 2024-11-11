@@ -58,6 +58,49 @@ blueprint:
       selector:
         action: {}
 
+    on_button_3_short:
+      name: On button 3 - short
+      default: []
+      selector:
+        action: {}
+    off_button_3_short:
+      name: Off button 3 - short
+      default: []
+      selector:
+        action: {}
+    on_button_3_long:
+      name: On button 3 - long press
+      default: []
+      selector:
+        action: {}
+    off_button_3_long:
+      name: Off button 3 - long press
+      default: []
+      selector:
+        action: {}
+
+    on_button_4_short:
+      name: On button 4 - short
+      default: []
+      selector:
+        action: {}
+    off_button_4_short:
+      name: Off button 4 - short
+      default: []
+      selector:
+        action: {}
+    on_button_4_long:
+      name: On button 4 - long press
+      default: []
+      selector:
+        action: {}
+    off_button_4_long:
+      name: Off button 4 - long press
+      default: []
+      selector:
+        action: {}
+
+
 mode: restart
 max_exceeded: silent
 trigger:
